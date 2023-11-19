@@ -1,75 +1,73 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
-import { generateNextGrid } from "./logic";
-import { CellProps, GameOfLifeProps } from "./types";
+import { useEffect, useState } from 'react'
+import { generateNextGrid } from './logic'
+import { CellProps, GameOfLifeProps } from './types'
 
 // Cell sub-component of the Game of Life grid. One for each block.
 const Cell: React.FC<CellProps> = ({ cellValue, onClick }) => {
-  return (
-    <div
-      className={`w-10 h-10 border-2 border-blue-600 ${
-        cellValue === 1 ? "bg-green-500" : "bg-white"
-      }`}
-      onClick={onClick}
-    >
-      {cellValue}
-    </div>
-  );
-};
+    return (
+        <div
+            className={`w-10 h-10 border-2 border-blue-600 ${
+                cellValue === 1 ? 'bg-green-500' : 'bg-white'
+            }`}
+            onClick={onClick}
+        >
+            {cellValue}
+        </div>
+    )
+}
 
 const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
-  const [gen, setGen] = useState(0);
-  const [grid, setGrid] = useState(
-    new Array(width).fill(0).map(() => new Array(height).fill(0))
-  );
+    const [gen, setGen] = useState(0)
+    const [grid, setGrid] = useState(new Array(width).fill(0).map(() => new Array(height).fill(0)))
 
-  useEffect(() => {
-    console.log("Grid updated");
-    generateNextGrid(grid);
-  }, [gen]);
+    useEffect(() => {
+        console.log('Grid updated')
+        generateNextGrid(grid)
+    }, [gen])
 
-  const nextGen = () => {
-    console.log("Current gen", gen);
-    setGen(gen + 1);
-  };
+    const nextGen = () => {
+        console.log('Current gen', gen)
+        setGen(gen + 1)
+    }
 
-  const toggleCellValue = (rowIndex: number, columnIndex: number) => {
-    console.log(`Cell [${rowIndex},${columnIndex}] clicked`);
-    const newGrid = [...grid];
-    newGrid[rowIndex][columnIndex] = grid[rowIndex][columnIndex] === 0 ? 1 : 0;
-    setGrid(newGrid);
-  };
+    const toggleCellValue = (rowIndex: number, columnIndex: number) => {
+        console.log(`Cell [${rowIndex},${columnIndex}] clicked`)
+        const newGrid = [...grid]
+        newGrid[rowIndex][columnIndex] = grid[rowIndex][columnIndex] === 0 ? 1 : 0
+        setGrid(newGrid)
+    }
 
-  return (
-    <div>
-      <h1>Game Of Life</h1>
-      <div>Current Gen: {gen}</div>
+    return (
+        <div>
+            <h1>Game Of Life</h1>
+            <div>Current Gen: {gen}</div>
 
-      {grid.map((row, rowIndex) => {
-        return (
-          <div className="flex" key={rowIndex}>
-            {row.map((cell, columnIndex) => {
-              return (
-                <Cell
-                  key={columnIndex}
-                  cellValue={grid[rowIndex][columnIndex]}
-                  onClick={() => toggleCellValue(rowIndex, columnIndex)}
-                />
-              );
+            {grid.map((row, rowIndex) => {
+                return (
+                    <div className="flex" key={rowIndex}>
+                        {row.map((cell, columnIndex) => {
+                            return (
+                                <Cell
+                                    key={columnIndex}
+                                    cellValue={grid[rowIndex][columnIndex]}
+                                    onClick={() => toggleCellValue(rowIndex, columnIndex)}
+                                />
+                            )
+                        })}
+                    </div>
+                )
             })}
-          </div>
-        );
-      })}
 
-      <button
-        className="border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 rounded"
-        onClick={nextGen}
-      >
-        Next Gen
-      </button>
-    </div>
-  );
-};
+            <button
+                className="border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 rounded"
+                onClick={nextGen}
+            >
+                Next Gen
+            </button>
+        </div>
+    )
+}
 
-export default GameOfLife;
+export default GameOfLife
