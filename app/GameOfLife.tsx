@@ -12,9 +12,7 @@ const Cell: React.FC<CellProps> = ({ cellValue, onClick }) => {
                 cellValue === 1 ? 'bg-green-500' : 'bg-white'
             }`}
             onClick={onClick}
-        >
-            {cellValue}
-        </div>
+        ></div>
     )
 }
 
@@ -23,17 +21,14 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
     const [grid, setGrid] = useState(new Array(width).fill(0).map(() => new Array(height).fill(0)))
 
     useEffect(() => {
-        console.log('Grid updated')
-        generateNextGrid(grid)
+        setGrid(g => generateNextGrid(g))
     }, [gen])
 
     const nextGen = () => {
-        console.log('Current gen', gen)
         setGen(gen + 1)
     }
 
     const toggleCellValue = (rowIndex: number, columnIndex: number) => {
-        console.log(`Cell [${rowIndex},${columnIndex}] clicked`)
         const newGrid = [...grid]
         newGrid[rowIndex][columnIndex] = grid[rowIndex][columnIndex] === 0 ? 1 : 0
         setGrid(newGrid)
