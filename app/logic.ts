@@ -1,8 +1,5 @@
 import { CellPosition } from './types'
 
-// TODO update all neighbor Arrays to Sets
-// TODO explore memoization for cell: aliveNeighborCount
-
 export const generateNextGrid = (prevGrid: number[][]): number[][] => {
     // Make a copy of the prev grid, to apply rules simultaneously
     const nextGrid = prevGrid.map((arr) => [...arr])
@@ -11,7 +8,7 @@ export const generateNextGrid = (prevGrid: number[][]): number[][] => {
     const GRID_HEIGHT = prevGrid.length
     const GRID_WIDTH = prevGrid[0].length
 
-    // Check if alive cells will survive or die
+    // Handle currently alive cells first
     for (let row = 0; row < prevGrid.length; row++) {
         for (let col = 0; col < GRID_WIDTH; col++) {
             // Check cell is currently alive
@@ -42,11 +39,7 @@ export const generateNextGrid = (prevGrid: number[][]): number[][] => {
         }
     }
 
-    // Check if dead cells will revive
-    // TODO use set (unique) of all neighbor indices from alive checks
-    // Iterate through to see if 1) currently dead AND 2) should revive
-
-    // const uniqueDiscoveredNeighbors = new Set(discoveredNeighbors)
+    // Now handle currently dead cells
     new Set(discoveredNeighbors).forEach((cell: CellPosition) => {
         // Check cell is currently dead
         if (prevGrid[cell.row][cell.column] === 0) {
