@@ -14,8 +14,28 @@ export const generateNextGrid = (prevGrid: number[][]): number[][] => {
             console.log(row + ':' + col)
             // Check cell is currently alive
             if (prevGrid[row][col] === 1) {
-                // Count alive neighbor
-                // const liveNeighbors =
+                // Stores all valid neighbors of the current cell
+                const allNeighbors: CellPosition[] = getArrayOfNeighbors(
+                    row,
+                    col,
+                    prevGrid.length,
+                    prevGrid[row].length
+                )
+                // Counts the number of alive neighbors
+                const liveNeighborCount: number = allNeighbors.reduce(
+                    (acc: number, neighbor: CellPosition) => {
+                        return acc + prevGrid[neighbor.row][neighbor.column]
+                    },
+                    0
+                )
+
+                // Cell dies if it has < 2 or > 3 live neighbors
+                if (liveNeighborCount < 2 || liveNeighborCount > 3) {
+                    nextGrid[row][col] = 0
+                }
+                // Otherwise, cell survives. No need to change its value
+                // Lastly, store the cell's neighbors for optimized revive search
+                discoveredNeighbors = discoveredNeighbors.concat(allNeighbors)
             }
         }
     }
