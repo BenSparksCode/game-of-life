@@ -1,16 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-interface GameOfLifeProps {
-  width: number;
-  height: number;
-}
-
-interface CellProps {
-  cellValue: number;
-  onClick: () => void;
-}
+import { generateNextGrid } from "./logic";
+import { CellProps, GameOfLifeProps } from "./types";
 
 // Cell sub-component of the Game of Life grid. One for each block.
 const Cell: React.FC<CellProps> = ({ cellValue, onClick }) => {
@@ -34,6 +26,7 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
 
   useEffect(() => {
     console.log("Grid updated");
+    generateNextGrid(grid);
   }, [gen]);
 
   const nextGen = () => {
@@ -51,6 +44,7 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
   return (
     <div>
       <h1>Game Of Life</h1>
+      <div>Current Gen: {gen}</div>
 
       {grid.map((row, rowIndex) => {
         return (
