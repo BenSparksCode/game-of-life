@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface GameOfLifeProps {
   width: number;
@@ -16,7 +16,9 @@ interface CellProps {
 const Cell: React.FC<CellProps> = ({ cellValue, onClick }) => {
   return (
     <div
-      className={`w-10 h-10 border-2 border-blue-600 ${cellValue === 1 ? 'bg-green-500' : 'bg-white'}`}
+      className={`w-10 h-10 border-2 border-blue-600 ${
+        cellValue === 1 ? "bg-green-500" : "bg-white"
+      }`}
       onClick={onClick}
     >
       {cellValue}
@@ -25,9 +27,19 @@ const Cell: React.FC<CellProps> = ({ cellValue, onClick }) => {
 };
 
 const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
+  const [gen, setGen] = useState(0);
   const [grid, setGrid] = useState(
     new Array(width).fill(0).map(() => new Array(height).fill(0))
   );
+
+  useEffect(() => {
+    console.log("Grid updated");
+  }, [gen]);
+
+  const nextGen = () => {
+    console.log("Current gen", gen);
+    setGen(gen + 1);
+  };
 
   const toggleCellValue = (rowIndex: number, columnIndex: number) => {
     console.log(`Cell [${rowIndex},${columnIndex}] clicked`);
@@ -38,7 +50,8 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
 
   return (
     <div>
-      <div>Game Of Life</div>
+      <h1>Game Of Life</h1>
+
       {grid.map((row, rowIndex) => {
         return (
           <div className="flex" key={rowIndex}>
@@ -54,6 +67,13 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
           </div>
         );
       })}
+
+      <button
+        className="border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 rounded"
+        onClick={nextGen}
+      >
+        Next Gen
+      </button>
     </div>
   );
 };
