@@ -16,7 +16,7 @@ interface CellProps {
 const Cell: React.FC<CellProps> = ({ cellValue, onClick }) => {
   return (
     <div
-      className="w-10 h-10 bg-blue-500 border-2 border-blue-600"
+      className={`w-10 h-10 border-2 border-blue-600 ${cellValue === 1 ? 'bg-green-500' : 'bg-white'}`}
       onClick={onClick}
     >
       {cellValue}
