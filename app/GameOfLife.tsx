@@ -1,14 +1,61 @@
-'use client'
+"use client";
+
+import { useState } from "react";
 
 interface GameOfLifeProps {
-    width: number
-    height: number
+  width: number;
+  height: number;
 }
 
-const GameOfLife: React.FC<GameOfLifeProps> = ({width, height}) => {
+interface CellProps {
+  cellValue: number;
+  onClick: () => void;
+}
+
+// Cell sub-component of the Game of Life grid. One for each block.
+const Cell: React.FC<CellProps> = ({ cellValue, onClick }) => {
   return (
-    <div>Game Of Life</div>
-  )
-}
+    <div
+      className="w-10 h-10 bg-blue-500 border-2 border-blue-600"
+      onClick={onClick}
+    >
+      {cellValue}
+    </div>
+  );
+};
 
-export default GameOfLife
+const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
+  const [grid, setGrid] = useState(
+    new Array(width).fill(0).map(() => new Array(height).fill(0))
+  );
+
+  const toggleCellValue = (rowIndex: number, columnIndex: number) => {
+    console.log(`Cell [${rowIndex},${columnIndex}] clicked`);
+    const newGrid = [...grid];
+    newGrid[rowIndex][columnIndex] = grid[rowIndex][columnIndex] === 0 ? 1 : 0;
+    setGrid(newGrid);
+  };
+
+  return (
+    <div>
+      <div>Game Of Life</div>
+      {grid.map((row, rowIndex) => {
+        return (
+          <div className="flex" key={rowIndex}>
+            {row.map((cell, columnIndex) => {
+              return (
+                <Cell
+                  key={columnIndex}
+                  cellValue={grid[rowIndex][columnIndex]}
+                  onClick={() => toggleCellValue(rowIndex, columnIndex)}
+                />
+              );
+            })}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default GameOfLife;
