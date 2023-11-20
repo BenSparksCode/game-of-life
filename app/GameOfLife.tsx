@@ -8,8 +8,8 @@ import { CellProps, GameOfLifeProps } from './types'
 const Cell: React.FC<CellProps> = ({ cellValue, onClick }) => {
     return (
         <div
-            className={`w-10 h-10 border-2 border-blue-600 ${
-                cellValue === 1 ? 'bg-green-500' : 'bg-white'
+            className={`w-10 h-10 border-2 border-lumoGreen-light ${
+                cellValue === 1 ? 'bg-lumoGreen-dark' : 'bg-offBlack-dark'
             }`}
             onClick={onClick}
         ></div>
@@ -21,7 +21,7 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
     const [grid, setGrid] = useState(new Array(width).fill(0).map(() => new Array(height).fill(0)))
 
     useEffect(() => {
-        setGrid(g => generateNextGrid(g))
+        setGrid((g) => generateNextGrid(g))
     }, [gen])
 
     const nextGen = () => {
@@ -36,9 +36,7 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
 
     return (
         <div>
-            <h1>Game Of Life</h1>
-            <div>Current Gen: {gen}</div>
-
+            <div className="text-lumoGreen mb-2">Current Gen: {gen}</div>
             {grid.map((row, rowIndex) => {
                 return (
                     <div className="flex" key={rowIndex}>
@@ -56,7 +54,7 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
             })}
 
             <button
-                className="border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 rounded"
+                className="mt-2 border-2 border-lumoGreen text-lumoGreen hover:bg-lumoGreen hover:text-offBlack-dark font-bold py-2 px-4 rounded"
                 onClick={nextGen}
             >
                 Next Gen
