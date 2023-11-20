@@ -35,8 +35,8 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
     }
 
     return (
-        <div>
-            <div className="text-lumoGreen mb-2">Current Gen: {gen}</div>
+        <div className="bg-offBlack border border-lumoGreen rounded-[18px] content-center justify-items-center overflow-hidden m-6 p-6">
+            <div className="text-lumoGreen mb-4 w-full text-center">Current Gen: {gen}</div>
             {grid.map((row, rowIndex) => {
                 return (
                     <div className="flex" key={rowIndex}>
@@ -53,12 +53,14 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
                 )
             })}
 
-            <button
-                className="mt-2 border-2 border-lumoGreen text-lumoGreen hover:bg-lumoGreen hover:text-offBlack-dark font-bold py-2 px-4 rounded"
-                onClick={nextGen}
-            >
-                Next Gen
-            </button>
+            <div className="flex w-full place-content-center">
+                <button
+                    className="mt-4 border-2 border-lumoGreen text-lumoGreen hover:bg-lumoGreen hover:text-offBlack-dark font-bold py-2 px-4 rounded"
+                    onClick={nextGen}
+                >
+                    Next Gen
+                </button>
+            </div>
         </div>
     )
 }

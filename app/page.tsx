@@ -11,10 +11,10 @@ const Home = () => {
 
     useEffect(() => {
         const bg = backgroundRef.current
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 30; i++) {
             let dot = document.createElement('div')
             dot.className = 'dot'
-            dot.style.width = `${Math.random() * 8}px`
+            dot.style.width = `${Math.random() * 6}px`
             dot.style.height = dot.style.width
             dot.style.top = `${Math.random() * 100}%`
             dot.style.left = `${Math.random() * 100}%`
@@ -30,12 +30,12 @@ const Home = () => {
 
         // Initial fade in
         setTimeout(() => {
-            dot.style.opacity = 0.5
+            dot.style.opacity = 0.3
         }, Math.random() * 2000) // Random delay for initial fade-in
 
         // Continuous fading
         setInterval(() => {
-            dot.style.opacity = Math.random() < 0.5 ? 0 : 0.5
+            dot.style.opacity = Math.random() < 0.5 ? 0 : 0.3
         }, fadeInterval)
 
         // Continuous moving
@@ -56,7 +56,7 @@ const Home = () => {
                 <header className="bg-offBlack-dark text-center py-4">
                     <h1 className="text-xl text-lumoGreen font-bold">Conway's Game of Life</h1>
                 </header>
-                <main className="flex min-h-screen flex-col items-center justify-between p-24">
+                <main className="flex min-h-screen flex-col items-center justify-between p-2">
                     <GameOfLife width={10} height={10} />
                 </main>
                 <footer className="bg-offBlack-dark text-center py-4 text-sm sticky bottom-0">
