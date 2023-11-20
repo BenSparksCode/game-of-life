@@ -8,6 +8,18 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        lumoGreen: {
+          light: '#80FF72',
+          DEFAULT: '#72DF6C',
+          dark: '#58C569',
+        },
+        offBlack: {
+          light: '#2A2A2A',
+          DEFAULT: '#1F1F1F',
+          dark: '#141414',
+        },
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

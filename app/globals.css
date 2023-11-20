@@ -25,3 +25,19 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.starry-background {
+  background-color: #141414; /* Dark background */
+  position: relative;
+  overflow: hidden;
+  width: 100%; /* Ensure full width */
+  height: 100vh; /* Full height of the viewport */
+}
+
+.dot {
+  position: absolute;
+  border-radius: 50%;
+  background-color: #58C569; /* Lumo green color for dots */
+  opacity: 0; /* Start with dots invisible */
+  transition: opacity 3s, transform 8s ease-in-out; /* Smooth transitions for fading and moving */
+}
