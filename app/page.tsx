@@ -64,6 +64,8 @@ const Home = () => {
                     <a
                         href="https://github.com/BenSparksCode"
                         className="mx-2 text-lumoGreen"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         aria-label="GitHub"
                     >
                         <FaGithub size={20} />
@@ -71,6 +73,8 @@ const Home = () => {
                     <a
                         href="https://twitter.com/bensparks_"
                         className="mx-2 text-lumoGreen"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         aria-label="Twitter"
                     >
                         <FaTwitter size={20} />
