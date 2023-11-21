@@ -3,15 +3,14 @@
 import { FaGithub, FaTwitter } from 'react-icons/fa' // Importing icons from React Icons
 import GameOfLife from './GameOfLife'
 import AnimatedBackground from './AnimatedBackground'
+import { TitleBar } from './TitleBar'
 
 const Home = () => {
     return (
         <div>
             <AnimatedBackground>
                 <div className="relative z-10">
-                    <header className="bg-offBlack-dark text-center py-4">
-                        <h1 className="text-xl text-lumoGreen font-bold">{`Conway's Game of Life`}</h1>
-                    </header>
+                    <TitleBar />
                     <main className="flex min-h-screen flex-col items-center justify-between p-2">
                         <GameOfLife width={10} height={10} />
                     </main>
