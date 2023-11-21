@@ -22,15 +22,7 @@ body {
         rgb(var(--background-start-rgb));
 }
 
-.dot {
-    position: absolute;
-    border-radius: 50%;
-    background-color: #58c569;
-    opacity: 0; /* Start with dots invisible */
-    transition: opacity 3s, transform 8s ease-in-out; /* Smooth transitions for fading and moving */
-}
-
-.content {
-    position: relative;
-    z-index: 1; /* Ensure this is higher than the starry-background */
+.dotAnimation {
+    /* Smooth transitions for fading and moving */
+    transition: opacity 3s, transform 8s ease-in-out;
 }

@@ -8,7 +8,7 @@ const Home = () => {
     return (
         <div>
             <AnimatedBackground>
-                <div className="content">
+                <div className="relative z-10">
                     <header className="bg-offBlack-dark text-center py-4">
                         <h1 className="text-xl text-lumoGreen font-bold">{`Conway's Game of Life`}</h1>
                     </header>

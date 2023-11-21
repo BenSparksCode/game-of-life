@@ -7,7 +7,7 @@ const AnimatedBackground = ({ children }: { children: React.ReactNode }) => {
         const bg = backgroundRef.current
         for (let i = 0; i < 30; i++) {
             let dot = document.createElement('div')
-            dot.className = 'dot'
+            dot.className = 'dotAnimation absolute rounded-full bg-lumoGreen-dark opacity-0'
             dot.style.width = `${Math.random() * 6}px`
             dot.style.height = dot.style.width
             dot.style.top = `${Math.random() * 100}%`
