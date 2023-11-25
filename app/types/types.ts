@@ -4,12 +4,12 @@ export interface GameOfLifeProps {
 }
 
 export interface GameOfLifeGridProps {
-    grid: number[][]
+    grid: boolean[][]
     toggleCellValue: (rowIndex: number, columnIndex: number) => void
 }
 
 export interface CellProps {
-    cellValue: number
+    cellValue: boolean
     onClick: () => void
 }
 

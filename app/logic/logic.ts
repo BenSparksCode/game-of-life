@@ -1,6 +1,6 @@
 import { CellPosition } from '../types/types'
 
-export const generateNextGrid = (prevGrid: number[][]): number[][] => {
+export const generateNextGrid = (prevGrid: boolean[][]): boolean[][] => {
     // Make a copy of the prev grid, to apply rules simultaneously
     const nextGrid = prevGrid.map((arr) => [...arr])
     // Store all neighbors searched during the alive cell check, for optimized revive search
@@ -12,7 +12,7 @@ export const generateNextGrid = (prevGrid: number[][]): number[][] => {
     for (let row = 0; row < prevGrid.length; row++) {
         for (let col = 0; col < GRID_WIDTH; col++) {
             // Check cell is currently alive
-            if (prevGrid[row][col] === 1) {
+            if (prevGrid[row][col]) {
                 // Stores all valid neighbors of the current cell
                 const allNeighbors: CellPosition[] = getArrayOfNeighbors(
                     row,
@@ -23,14 +23,14 @@ export const generateNextGrid = (prevGrid: number[][]): number[][] => {
                 // Counts the number of alive neighbors
                 const liveNeighborCount: number = allNeighbors.reduce(
                     (acc: number, neighbor: CellPosition) => {
-                        return acc + prevGrid[neighbor.row][neighbor.column]
+                        return acc + (prevGrid[neighbor.row][neighbor.column] === true ? 1 : 0)
                     },
                     0
                 )
 
                 // Cell dies if it has < 2 or > 3 live neighbors
                 if (liveNeighborCount < 2 || liveNeighborCount > 3) {
-                    nextGrid[row][col] = 0
+                    nextGrid[row][col] = false
                 }
                 // Otherwise, cell survives. No need to change its value
                 // Lastly, store the cell's neighbors for optimized revive search
@@ -42,7 +42,7 @@ export const generateNextGrid = (prevGrid: number[][]): number[][] => {
     // Now handle currently dead cells
     new Set(discoveredNeighbors).forEach((cell: CellPosition) => {
         // Check cell is currently dead
-        if (prevGrid[cell.row][cell.column] === 0) {
+        if (!prevGrid[cell.row][cell.column]) {
             // Stores all valid neighbors of the current cell
             const allNeighbors: CellPosition[] = getArrayOfNeighbors(
                 cell.row,
@@ -53,14 +53,14 @@ export const generateNextGrid = (prevGrid: number[][]): number[][] => {
             // Counts the number of alive neighbors
             const liveNeighborCount: number = allNeighbors.reduce(
                 (acc: number, neighbor: CellPosition) => {
-                    return acc + prevGrid[neighbor.row][neighbor.column]
+                    return acc + (prevGrid[neighbor.row][neighbor.column] === true ? 1 : 0)
                 },
                 0
             )
 
             // Only revive dead cell if it has exactly 3 live neighbors
             if (liveNeighborCount === 3) {
-                nextGrid[cell.row][cell.column] = 1
+                nextGrid[cell.row][cell.column] = true
             }
             // Otherwise cell remains dead. No changes to grid needed.
         }
@@ -100,14 +100,13 @@ const getArrayOfNeighbors = (
     return neighborPositions
 }
 
-
 export const areGridsEqual = (grid1: boolean[][], grid2: boolean[][]): boolean => {
     for (let i = 0; i < grid1.length; i++) {
         for (let j = 0; j < grid1[i].length; j++) {
             if (grid1[i][j] !== grid2[i][j]) {
-                return false;
+                return false
             }
         }
     }
-    return true;
+    return true
 }

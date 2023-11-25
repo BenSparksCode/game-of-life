@@ -7,8 +7,10 @@ import GameOfLifeGrid from './GameOfLifeGrid'
 import GameOfLifeControls from './GameOfLifeControls'
 
 const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
-    const [gen, setGen] = useState(0)
-    const [grid, setGrid] = useState(new Array(width).fill(0).map(() => new Array(height).fill(0)))
+    const [gen, setGen] = useState<number>(0)
+    const [grid, setGrid] = useState<boolean[][]>(
+        new Array(width).fill(false).map(() => new Array(height).fill(false))
+    )
 
     useEffect(() => {
         setGrid((g) => generateNextGrid(g))
@@ -20,7 +22,7 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
 
     const toggleCellValue = (rowIndex: number, columnIndex: number) => {
         const newGrid = [...grid]
-        newGrid[rowIndex][columnIndex] = grid[rowIndex][columnIndex] === 0 ? 1 : 0
+        newGrid[rowIndex][columnIndex] = !grid[rowIndex][columnIndex]
         setGrid(newGrid)
     }
 

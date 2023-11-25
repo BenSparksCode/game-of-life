@@ -5,7 +5,7 @@ import { CellProps, GameOfLifeGridProps } from '../../types/types' // TODO refac
 const Cell: React.FC<CellProps> = ({ cellValue, onClick }) => (
     <div
         className={`w-10 h-10 border-2 border-lumoGreen-light ${
-            cellValue === 1 ? 'bg-lumoGreen-dark' : 'bg-offBlack-dark'
+            cellValue ? 'bg-lumoGreen-dark' : 'bg-offBlack-dark'
         }`}
         onClick={onClick}
     ></div>
@@ -16,7 +16,7 @@ const GameOfLifeGrid: React.FC<GameOfLifeGridProps> = ({ grid, toggleCellValue }
     <div>
         {grid.map((row, rowIndex) => (
             <div className="flex" key={rowIndex}>
-                {row.map((cell, columnIndex) => (
+                {row.map((_, columnIndex) => (
                     <Cell
                         key={columnIndex}
                         cellValue={grid[rowIndex][columnIndex]}
