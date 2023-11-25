@@ -2,9 +2,10 @@
 import { CellProps, GameOfLifeGridProps } from '../../types/types' // TODO refactor to abs path in tsconfig
 
 // A component for a single cell in the Game of Life grid
-const Cell: React.FC<CellProps> = ({ cellValue, onClick }) => (
+const Cell: React.FC<CellProps> = ({ cellValue, cellHeightInPx, onClick }) => (
     <div
-        className={`w-10 h-10 border-2 border-lumoGreen-light ${
+    style={{ width: `${cellHeightInPx}px`, height: `${cellHeightInPx}px` }}
+        className={`border border-lumoGreen-light ${
             cellValue ? 'bg-lumoGreen-dark' : 'bg-offBlack-dark'
         }`}
         onClick={onClick}
@@ -12,14 +13,15 @@ const Cell: React.FC<CellProps> = ({ cellValue, onClick }) => (
 )
 
 // The full Game of Life grid
-const GameOfLifeGrid: React.FC<GameOfLifeGridProps> = ({ grid, toggleCellValue }) => (
-    <div>
+const GameOfLifeGrid: React.FC<GameOfLifeGridProps> = ({ grid, gridHeightInCells, cellHeightInPx, toggleCellValue }) => (
+    <div className='overflow-hidden justify-self-start self-center'>
         {grid.map((row, rowIndex) => (
             <div className="flex" key={rowIndex}>
                 {row.map((_, columnIndex) => (
                     <Cell
                         key={columnIndex}
                         cellValue={grid[rowIndex][columnIndex]}
+                        cellHeightInPx={cellHeightInPx}
                         onClick={() => toggleCellValue(rowIndex, columnIndex)}
                     />
                 ))}
