@@ -1,9 +1,9 @@
 'use client'
 
-import GameOfLife from './GameOfLife'
-import AnimatedBackground from './AnimatedBackground'
-import { TitleBar } from './TitleBar'
-import { Footer } from './Footer'
+import GameOfLife from './components/GameOfLife/GameOfLife'
+import AnimatedBackground from './components/AnimatedBackground'
+import { TitleBar } from './components/TitleBar'
+import { Footer } from './components/Footer'
 
 const Home = () => {
     return (

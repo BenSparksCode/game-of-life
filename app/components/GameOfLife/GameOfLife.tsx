@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { generateNextGrid } from './logic'
-import { CellProps, GameOfLifeProps } from './types'
+import { generateNextGrid } from '../../logic/logic'
+import { CellProps, GameOfLifeProps } from '../../types/types'
 
 // Cell sub-component of the Game of Life grid. One for each block.
 const Cell: React.FC<CellProps> = ({ cellValue, onClick }) => {

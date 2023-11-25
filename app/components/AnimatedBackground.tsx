@@ -1,20 +1,22 @@
 import React, { useEffect, useRef } from 'react'
 
 const AnimatedBackground = ({ children }: { children: React.ReactNode }) => {
-    const backgroundRef = useRef(null)
+    const backgroundRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         const bg = backgroundRef.current
-        for (let i = 0; i < 30; i++) {
-            let dot = document.createElement('div')
-            dot.className = 'dotAnimation absolute rounded-full bg-lumoGreen-dark opacity-0'
-            dot.style.width = `${Math.random() * 6}px`
-            dot.style.height = dot.style.width
-            dot.style.top = `${Math.random() * 100}%`
-            dot.style.left = `${Math.random() * 100}%`
+        if (bg) {
+            for (let i = 0; i < 30; i++) {
+                let dot = document.createElement('div')
+                dot.className = 'dotAnimation absolute rounded-full bg-lumoGreen-dark opacity-0'
+                dot.style.width = `${Math.random() * 6}px`
+                dot.style.height = dot.style.width
+                dot.style.top = `${Math.random() * 100}%`
+                dot.style.left = `${Math.random() * 100}%`
 
-            bg.appendChild(dot)
-            animateDot(dot)
+                bg.appendChild(dot)
+                animateDot(dot)
+            }
         }
     }, [])
 

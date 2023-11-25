@@ -1,4 +1,4 @@
-import { CellPosition } from './types'
+import { CellPosition } from '../types/types'
 
 export const generateNextGrid = (prevGrid: number[][]): number[][] => {
     // Make a copy of the prev grid, to apply rules simultaneously
