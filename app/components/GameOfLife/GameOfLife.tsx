@@ -2,19 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { generateNextGrid } from '../../logic/logic'
-import { CellProps, GameOfLifeProps } from '../../types/types'
-
-// Cell sub-component of the Game of Life grid. One for each block.
-const Cell: React.FC<CellProps> = ({ cellValue, onClick }) => {
-    return (
-        <div
-            className={`w-10 h-10 border-2 border-lumoGreen-light ${
-                cellValue === 1 ? 'bg-lumoGreen-dark' : 'bg-offBlack-dark'
-            }`}
-            onClick={onClick}
-        ></div>
-    )
-}
+import { GameOfLifeProps } from '../../types/types'
+import GameOfLifeGrid from './GameOfLifeGrid'
+import GameOfLifeControls from './GameOfLifeControls'
 
 const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
     const [gen, setGen] = useState(0)
@@ -37,30 +27,8 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
     return (
         <div className="bg-offBlack border border-lumoGreen rounded-[18px] content-center justify-items-center overflow-hidden m-6 p-6">
             <div className="text-lumoGreen mb-4 w-full text-center">Current Gen: {gen}</div>
-            {grid.map((row, rowIndex) => {
-                return (
-                    <div className="flex" key={rowIndex}>
-                        {row.map((cell, columnIndex) => {
-                            return (
-                                <Cell
-                                    key={columnIndex}
-                                    cellValue={grid[rowIndex][columnIndex]}
-                                    onClick={() => toggleCellValue(rowIndex, columnIndex)}
-                                />
-                            )
-                        })}
-                    </div>
-                )
-            })}
-
-            <div className="flex w-full place-content-center">
-                <button
-                    className="mt-4 border-2 border-lumoGreen text-lumoGreen hover:bg-lumoGreen hover:text-offBlack-dark font-bold py-2 px-4 rounded"
-                    onClick={nextGen}
-                >
-                    Next Gen
-                </button>
-            </div>
+            <GameOfLifeGrid grid={grid} toggleCellValue={toggleCellValue} />
+            <GameOfLifeControls onNextGen={nextGen} />
         </div>
     )
 }
