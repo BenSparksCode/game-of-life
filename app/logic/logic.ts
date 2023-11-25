@@ -99,3 +99,15 @@ const getArrayOfNeighbors = (
     }
     return neighborPositions
 }
+
+
+export const areGridsEqual = (grid1: boolean[][], grid2: boolean[][]): boolean => {
+    for (let i = 0; i < grid1.length; i++) {
+        for (let j = 0; j < grid1[i].length; j++) {
+            if (grid1[i][j] !== grid2[i][j]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
