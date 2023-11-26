@@ -52,7 +52,7 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
     }
 
     return (
-        <div className="w-[500px] h-[550px] flex flex-col bg-offBlack border border-lumoGreen rounded-[18px] content-center justify-items-center overflow-hidden m-6 p-6">
+        <div className="w-[500px] h-[550px] flex flex-col bg-offBlack border border-lumoGreen rounded-[12px] content-center justify-items-center overflow-hidden m-4 p-4">
             <GameOfLifeGrid grid={grid} gridHeightInCells={gridHeightInCells} cellHeightInPx={cellHeightInPx} toggleCellValue={toggleCellValue} />
             <GameOfLifeControls onNextGen={nextGen} onGridSizeSliderChange={setGridSize} />
         </div>

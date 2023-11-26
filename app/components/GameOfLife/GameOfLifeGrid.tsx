@@ -14,7 +14,7 @@ const Cell: React.FC<CellProps> = ({ cellValue, cellHeightInPx, onClick }) => (
 
 // The full Game of Life grid
 const GameOfLifeGrid: React.FC<GameOfLifeGridProps> = ({ grid, gridHeightInCells, cellHeightInPx, toggleCellValue }) => (
-    <div className='overflow-hidden justify-self-start self-center'>
+    <div className='overflow-hidden justify-self-start self-center m-4'>
         {grid.map((row, rowIndex) => (
             <div className="flex" key={rowIndex}>
                 {row.map((_, columnIndex) => (

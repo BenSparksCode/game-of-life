@@ -19,6 +19,10 @@ export interface CellProps {
 export interface GameOfLifeControlsProps {
     onNextGen: () => void
     onGridSizeSliderChange: (newGridHeightInCells: number[]) => void
+    handlePrevGen: () => void
+    handlePlayPause: () => void
+    handleResetGrid: () => void
+    isPlaying: boolean
 }
 
 export interface CellPosition {
