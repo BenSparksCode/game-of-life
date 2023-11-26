@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { Slider } from '@/components/ui/slider'
-import { PlayIcon, PauseIcon, ArrowLeftIcon, ResetIcon, CameraIcon } from '@radix-ui/react-icons'
+import { PlayIcon, PauseIcon, ArrowLeftIcon, ResetIcon } from '@radix-ui/react-icons'
+import { PiVideoCameraLight } from 'react-icons/pi'
 
 import { GameOfLifeControlsProps } from '../../types/types'
 
@@ -24,9 +25,9 @@ const GameOfLifeControls: React.FC<GameOfLifeControlsProps> = ({
         <div className="flex flex-col place-content-center items-center w-full space-y-4 mt-auto mb-2">
             <div className="flex w-9/12 justify-center space-x-2 mb-4">
                 <Slider
-                    defaultValue={[10]}
-                    min={8}
-                    max={30}
+                    defaultValue={[14]}
+                    min={6}
+                    max={22}
                     onValueChange={onGridSizeSliderChange}
                 />
             </div>
@@ -54,7 +55,7 @@ const GameOfLifeControls: React.FC<GameOfLifeControlsProps> = ({
                     className="border py-2 px-6 rounded border-lumoGreen text-lumoGreen hover:bg-lumoGreen hover:text-offBlack-dark font-bold"
                     onClick={toggleRecording}
                 >
-                    <CameraIcon />
+                    <PiVideoCameraLight />
                 </button>
             </div>
         </div>
