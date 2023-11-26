@@ -14,6 +14,9 @@ export interface CellProps {
     cellValue: boolean
     cellHeightInPx: number
     onClick: () => void
+    onMouseDown: () => void
+    onMouseEnter: () => void
+    onMouseUp: () => void
 }
 
 export interface GameOfLifeControlsProps {
