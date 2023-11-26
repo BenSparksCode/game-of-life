@@ -8,7 +8,6 @@ import { PiVideoCameraLight } from 'react-icons/pi'
 import { GameOfLifeControlsProps } from '../../types/types'
 
 const GameOfLifeControls: React.FC<GameOfLifeControlsProps> = ({
-    onNextGen,
     onGridSizeSliderChange,
     handlePrevGen,
     handlePlayPause,
@@ -35,7 +34,7 @@ const GameOfLifeControls: React.FC<GameOfLifeControlsProps> = ({
                 {/* Change this onClick to real back step when ready */}
                 <button
                     className="border py-2 px-6 rounded border-lumoGreen text-lumoGreen hover:bg-lumoGreen hover:text-offBlack-dark font-bold"
-                    onClick={onNextGen}
+                    onClick={handlePrevGen}
                 >
                     <ArrowLeftIcon />
                 </button>
