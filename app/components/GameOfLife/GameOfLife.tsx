@@ -1,25 +1,42 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { generateNextGrid } from '../../logic/logic'
 import { GameOfLifeProps } from '../../types/types'
 import GameOfLifeGrid from './GameOfLifeGrid'
 import GameOfLifeControls from './GameOfLifeControls'
 
 const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
+    
     const [grid, setGrid] = useState<boolean[][]>(
         new Array(width).fill(false).map(() => new Array(height).fill(false))
     )
+    const gridRef = useRef<boolean[][]>(grid)
+    const [gridHistory, setGridHistory] = useState<boolean[][][]>(
+        new Array<boolean[][]>()
+    )
+    const gridHistoryRef = useRef<boolean[][][]>(gridHistory)
     const [gridHeightInCells, setGridHeightInCells] = useState<number>(10)
     const [cellHeightInPx, setCellHeightInPx] = useState<number>(38)
     const [isPlaying, setIsPlaying] = useState<boolean>(false)
+
+    // Keep gridRef up to date with latest grid
+    useEffect(() => {
+        gridRef.current = grid
+    }, [grid])
+
+    // Keep gridHistoryRef up to date with latest gridHistory
+    useEffect(() => {
+        gridHistoryRef.current = gridHistory
+    }, [gridHistory])
 
     // Handles continuous grid gen progression when playing
     useEffect(() => {
         let interval: NodeJS.Timeout | undefined
         if (isPlaying) {
             interval = setInterval(() => {
-                setGrid((g) => generateNextGrid(g))
+                console.log("Grid history before ", gridHistory)
+                updateGrid(gridRef.current, gridHistoryRef.current)
             }, 250) // update interval in milliseconds
         } else if (interval !== undefined) {
             clearInterval(interval)
@@ -54,17 +71,35 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
 
         // TODO set state vars here - might have to group into 1 object
         setGrid(newGrid)
+        setGridHistory([])
         setCellHeightInPx(newCellHeight)
         setGridHeightInCells(newGridHeightInCells[0])
     }
 
+    const updateGrid = (currentGrid: boolean[][], gridHistory: boolean[][][]) => {
+        // First add current grid to gridHistory
+        const newGridHistory = [...gridHistory, currentGrid]
+
+        console.log("Grid history after ", newGridHistory)
+
+        // Store the updated gridHistory
+        setGridHistory(newGridHistory)
+        // Then generate next gen and set it as current grid
+        setGrid(generateNextGrid(currentGrid))
+     }
+
     const handlePrevGen = () => {
         // TODO
+        // Do nothing if no prev grids stored in gridHistory array
+        if (gridHistory.length === 0) return
+        setGrid(gridHistory[gridHistory.length - 1])
+        setGridHistory(gridHistory.slice(0, gridHistory.length - 1))
     }
 
     const handleResetGrid = () => {
         setIsPlaying(false)
         setGrid((g) => g.map((row) => row.map(() => false)))
+        setGridHistory([])
     }
 
     const handlePlayPause = () => {
