@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
-import { generateNextGrid } from '../../logic/logic'
+import { areGridsEqual, generateNextGrid } from '../../logic/logic'
 import { GameOfLifeProps } from '../../types/types'
 import GameOfLifeGrid from './GameOfLifeGrid'
 import GameOfLifeControls from './GameOfLifeControls'
@@ -34,7 +34,7 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
         if (isPlaying) {
             interval = setInterval(() => {
                 updateGrid(gridRef.current, gridHistoryRef.current)
-            }, 250) // update interval in milliseconds
+            }, 200) // update interval in milliseconds
         } else if (interval !== undefined) {
             clearInterval(interval)
         }
@@ -70,6 +70,12 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height }) => {
     }
 
     const updateGrid = (currentGrid: boolean[][], gridHistory: boolean[][][]) => {
+        // If no change since last gen, pause game and stop updating grid
+        if (areGridsEqual(currentGrid, gridHistory[gridHistory.length - 1])) {
+            setIsPlaying(false)
+            return
+        }
+        // If grid still changing, continue with update logic:
         // First add current grid to gridHistory
         const newGridHistory = [...gridHistory, currentGrid]
         // Then store the updated gridHistory

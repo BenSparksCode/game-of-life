@@ -101,9 +101,12 @@ const getArrayOfNeighbors = (
 }
 
 export const areGridsEqual = (grid1: boolean[][], grid2: boolean[][]): boolean => {
-    for (let i = 0; i < grid1.length; i++) {
-        for (let j = 0; j < grid1[i].length; j++) {
-            if (grid1[i][j] !== grid2[i][j]) {
+    // Return false if not same dimension or not in [][] form
+    if (grid1?.length != grid2?.length || !grid1) return false
+    const HEIGHT = grid1.length
+    for (let i = 0; i < HEIGHT; i++) {
+        for (let j = 0; j < HEIGHT; j++) {
+            if (grid1[i][j] != grid2[i][j]) {
                 return false
             }
         }
